@@ -28,6 +28,7 @@ When it goes live, rewrite this section.
   - The home page's Coaches section stays short: photo, name, title, two or three sentences, and a link to the full bio.
 - **The header and footer are the same on every page**, except the wordmark: `<h1 class="wordmark">` on the home page, `<p class="wordmark"><a href="/">` elsewhere. Nav links are root-absolute (`/#winter`), so they work from any page. Change the header or footer on every page in the same commit.
 - **`sitemap.xml`** lists the home page and each coach page, and never the stubs. `robots.txt` points to it.
+- **No favicon**, by the owner's decision. Each page with a header carries `<link rel="icon" href="data:,">` so browsers don't request `/favicon.ico`. The stubs don't, like the mvxctf stubs.
 - **Redirect stubs** for the old Squarespace addresses, in the mvxctf stubs' pattern:
   - `about-batc.html` goes to `/#about`, `coaches.html` to `/#coaches`, and `sign-up.html` to `/#join`.
   - Each is a canonical link to the home page, an instant meta refresh and a visible link. No header, footer or stylesheet.
@@ -63,10 +64,10 @@ When it goes live, rewrite this section.
 
 - **Nothing invented.** Copy comes from the owner, or from the old site's archive once the owner has decided to keep it. Carry nothing over from the old site that hasn't been decided.
 - **Gaps are marked, never filled with placeholder prose.** A missing piece is a `.gap` element saying what's missing (`<span class="gap">` inline). Unconfirmed copy carried over from the old site sits inside a `.confirm` block. Gaps in `<head>` are `<!-- GAP: ... -->` comments. Nothing goes live with any of the three.
-- **Final copy** is verbatim and changes only on the owner's instruction. That covers the Winter section and Patrick Wales-Dinan's bio, which is on `/patrick-wales-dinan/` in full with nothing hidden.
+- **Final copy** is verbatim and changes only on the owner's instruction. That covers the opening section (`#about`, what BATC is and who it's for, which has no heading), the Winter section, the Mammoth Lakes paragraph in Summer, and Patrick Wales-Dinan's bio, which is on `/patrick-wales-dinan/` in full with nothing hidden.
   - The bio links "Monte Vista High School" to https://montevistaxc.com/team/patrick-wales-dinan/ on purpose: a cross-domain link for search. It stays with the bio, on the bio page only. Keep the address exact; it is that page's canonical.
   - The home page summary is drawn from the bio's own opening paragraph, with no new claims. If the opening changes, check the summary.
-- One fact, one place: a date or price is stated once. The old site gave the 5K two different dates.
+- One fact, one place: a date or price is stated once. The old site gave the 5K two different dates. The club number, 38-1006, appears only in How to join, where people use it.
 - Brandon Lawrence is off the site entirely. The Mammoth trip never shows a cost figure. There's no Twilight 5K (not scheduled for 2027) and no middle school line.
 - **Email is patrick@bayareatrackclub.org everywhere on the site.** info@ isn't used, though its mailbox still exists (see Status, DNS).
 - The Oak Hill Park map link is `https://www.google.com/maps/search/?api=1&query=37.843143%2C-121.984186`. Never a goo.gl short link.

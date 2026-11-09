@@ -62,6 +62,9 @@ No other old address has a stub. That covers `/home`, the 2017 blog and the athl
 - **No middle school line.**
 - **Email**: patrick@bayareatrackclub.org everywhere on the site; info@ isn't used.
 - **Photos**: Patrick's own, uncredited (see "Photos").
+- **Mammoth Lakes trip**: one paragraph under Summer, with no cost figure.
+- **Club number**: 38-1006 appears only in How to join.
+- **Favicon**: none.
 
 ## Outstanding
 
@@ -70,7 +73,5 @@ No other old address has a stub. That covers `/home`, the 2017 blog and the athl
 Still marked on the page (`.gap` is a missing piece; `.confirm` is unconfirmed copy from the old site):
 
 - **Summer 2027 dates**: unknown.
-- **What BATC is and who it's for**: being written.
-- **Summer details**: where, when and cost, carried over from the old site and not yet confirmed. Also the Mammoth Lakes trip wording (no cost figure).
+- **Summer details**: where, when and cost, carried over from the old site and not yet confirmed.
 - **How to join**: who checks are made out to.
-- **Favicon**: an HTML comment in each page's `<head>`, not visible.
