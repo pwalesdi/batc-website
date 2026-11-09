@@ -36,7 +36,7 @@ When it goes live, rewrite this section.
 
 - **One page for the program**: `index.html`. Sections in this order: what it is (`#about`), `#winter`, `#summer` (parked, see "Summer section"), `#join`, `#coaches`, `#contact`. No further program pages unless the owner asks.
 - **Coach bios live on their own pages** at `/<first>-<last>/index.html`: `/patrick-wales-dinan/` now, and `/kinsey-pogue/` once her bio exists. They serve a different search from the program page, which is why they're separate.
-  - Each has its own `<title>`, meta description and canonical link, and is listed in `sitemap.xml`.
+  - Each has its own `<title>`, meta description, canonical link and link-preview tags (see Paths), and is listed in `sitemap.xml`.
   - The home page's Coaches section stays short: photo, name, title, two or three sentences, and a link to the full bio.
 - **The header and footer are the same on every page**, except the wordmark: `<h1 class="wordmark">` on the home page, `<p class="wordmark"><a href="/">` elsewhere. Nav links are root-absolute (`/#winter`), so they work from any page. Change the header or footer on every page in the same commit.
 - **`sitemap.xml`** lists the home page and each coach page, and never the stubs. `robots.txt` points to it.
@@ -54,7 +54,11 @@ When it goes live, rewrite this section.
 ## Paths
 
 - **Root-absolute**: `/style.css`, `/images/2021-07-hillside-run.jpg`. Never relative paths, never `github.io` URLs.
-- **Canonical host: `https://bayareatrackclub.org/`**, the apex, never `www` (the owner's choice). The old Squarespace site used `www`, so `www` must redirect to the apex once DNS moves. Full addresses only where a spec requires them: canonical links (on every page, including the stubs), Open Graph (none yet), `sitemap.xml` and `robots.txt`.
+- **Canonical host: `https://bayareatrackclub.org/`**, the apex, never `www` (the owner's choice). The old Squarespace site used `www`, so `www` must redirect to the apex once DNS moves. Full addresses only where a spec requires them: canonical links (on every page, including the stubs), the link-preview tags, `sitemap.xml` and `robots.txt`.
+- **Link previews (Open Graph and Twitter tags)** are on every page with a header, and never on the stubs.
+  - The tags are `og:title`, `og:description`, `og:url`, `og:image` with its width, height and alt, `twitter:card` (`summary_large_image`) and `twitter:image`.
+  - `og:title`, `og:description` and `og:url` repeat the page's `<title>`, meta description and canonical word for word. Change them together.
+  - The image is `https://bayareatrackclub.org/images/link-preview.jpg` on every page (README, "Photos"). A new coach page gets the same set.
 
 ## Layout
 

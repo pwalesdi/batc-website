@@ -13,7 +13,7 @@ Preview: run `python3 -m http.server 8000` in this folder, then open http://loca
 | `sitemap.xml`, `robots.txt` | For search engines: the home page and the coach pages, never the stubs |
 | `CNAME` | GitHub Pages' custom domain, `bayareatrackclub.org`. Never delete or edit it |
 | `style.css` | The only stylesheet |
-| `images/` | Photos and the Venmo QR, metadata stripped |
+| `images/` | Photos, the link-preview image and the Venmo QR, metadata stripped |
 | `fonts/` | Fraunces and Jost (woff2) with their OFL licences |
 | `about-batc.html`, `coaches.html`, `sign-up.html` | Redirect stubs for the old Squarespace addresses (see "Old addresses") |
 
@@ -28,6 +28,7 @@ Each repo copy below had its metadata stripped losslessly, and its decoded pixel
 | `images/2021-07-hillside-run.jpg` | Hero | `~/Developer/batc_archive/images/site-wide/instagram-4-CRb5WlxHA9p.jpeg`, 1440 × 1440. Squarespace's copy of an Instagram post; no metadata in the file. | Posted 17 Jul 2021 |
 | `images/2022-06-sunset-workout.jpg` | Winter | `~/Developer/batc_archive/images/site-wide/instagram-2-CfJsuSKJmDr.jpeg`, 1440 × 1080. Squarespace's copy of an Instagram post; no metadata in the file. | Posted 23 Jun 2022 |
 | `images/coach-wales-dinan.jpg` | Coaches, and the top of `/patrick-wales-dinan/` | `~/Developer/mvxctf_website/assets/img/coaches/wales-dinan.jpg`, 710 × 887 (4:5). This is the Monte Vista site's coach card, cut from that repo's `2022-track-coach-wales-dinan.jpg`; reused on both sites by the owner's choice. **Photographer unknown, carried over from montevistaxc.com.** That doesn't block go-live. If Patrick remembers who took it, add the credit. | 2022 track season |
+| `images/link-preview.jpg` | Not on the page: it's the image shown when a page's link is shared (`og:image` and `twitter:image` on every page with a header) | Made from `images/2021-07-hillside-run.jpg`, so it's a new image, not a stripped copy. A 1080 × 945 box from (140, 105) of the hero, resized to 720 × 630 (Lanczos), sits beside a 480px `--accent` panel reading "Bay Area / Track / Club" in Fraunces 600, white. Rendered in headless Chrome at 1200 × 630, one JPEG encode (quality 88, 4:4:4 chroma), no metadata, 190 KB. Keep it under about 300 KB, WhatsApp's limit for previews. | Posted 17 Jul 2021 (the photo) |
 | `images/venmo-qr.png` | How to join (screens 760px and wider) | `~/Developer/batc_archive/images/sign-up/MyVenmoQRCode.png`, 978 × 1863 phone screenshot. Dropped the `eXIf`, `pHYs` and `iDOT` chunks and kept the colour profile. | Not a photo |
 
 **The hero is below the 1920px minimum.** It's 1440px wide, the size Instagram keeps. On phones, the main audience, it's sharp: a 390px-wide screen at 3× density needs 1170px. On a 1280px desktop it's shown slightly enlarged, and on high-density desktop screens about 1.8×, so it looks a little soft there. If the original phone photo turns up, replace this file with a version cut from it.
