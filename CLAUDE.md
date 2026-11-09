@@ -6,7 +6,7 @@ Working rules for this repo. Photo sources, credits and the font decision are in
 
 **This site is not live.** bayareatrackclub.org still points at the old Squarespace site.
 - The repo is on GitHub as `origin`, https://github.com/pwalesdi/batc-website, and it's public. Note the hyphen: the local folder is `batc_website`, with an underscore.
-- GitHub Pages is off, so nothing is deployed. Work locally: `python3 -m http.server 8000` from the repo root, then http://localhost:8000/ (root-absolute paths don't resolve from `file://`). The local server doesn't serve `/coaches` from `coaches.html` the way GitHub Pages does, so test the stubs as `/coaches.html`.
+- GitHub Pages is set in the repo's settings on github.com. `gh` isn't installed here, so the owner does it there: deploy from branch `main`, folder `/` (root), custom domain `bayareatrackclub.org` (matching the `CNAME` file). Until DNS moves, the new site can't be reached anywhere but locally (see step 2). Work locally: `python3 -m http.server 8000` from the repo root, then http://localhost:8000/ (root-absolute paths don't resolve from `file://`). The local server doesn't serve `/coaches` from `coaches.html` the way GitHub Pages does, so test the stubs as `/coaches.html`.
 
 Before it goes live, in this order:
 
@@ -15,8 +15,14 @@ Before it goes live, in this order:
    - The first part strips HTML comments before searching, because commented-out markup doesn't render. The parked Summer section's gap and "to confirm" block therefore don't count.
    - The second part catches `<!-- GAP: -->` notes, which are comments by design.
    - `README.md`, "Outstanding", lists what's still open.
-2. **GitHub Pages**: the repo exists and `main` is pushed. Turn on Pages from `main` only when the owner says, and set the custom domain to `bayareatrackclub.org`, the apex and the canonical host (see Paths), with a matching `CNAME` file. Check the site on its github.io address first.
-3. **DNS**: at Squarespace Domains (the registrar), point the apex's A and AAAA records at GitHub Pages. Make `www` a CNAME to the GitHub Pages host, so `www` addresses redirect to the apex. The old site's `www` URLs are the ones search engines have indexed. **Leave the MX and SPF records alone**: info@ and patrick@ mail runs on Google Workspace. Wait until https://bayareatrackclub.org serves this site with a valid certificate.
+2. **GitHub Pages**: the repo exists and `main` is pushed.
+   - Pages deploys from `main`, folder `/` (root), with the custom domain `bayareatrackclub.org`, the apex and the canonical host (see Paths). The `CNAME` file in the repo root holds that domain; never delete or edit it.
+   - **The github.io address is not a preview.** With a custom domain set, https://pwalesdi.github.io/batc-website/ 301-redirects to bayareatrackclub.org, which shows Squarespace until DNS moves. montevistaxc.com behaves the same way. Without a custom domain, the site would sit under `/batc-website/`, where root-absolute paths break.
+   - Preview locally; after DNS moves, check on the domain itself.
+3. **DNS**: at Squarespace Domains (the registrar):
+   - Point the apex's A records at GitHub Pages: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`. These are GitHub's published addresses, the same ones montevistaxc.com uses.
+   - Make `www` a CNAME to `pwalesdi.github.io`, the account's host, not the repo's. `www` addresses then redirect to the apex.
+   - Optionally, verify the domain in the GitHub account's Pages settings (a TXT record), so no other account can claim it. The old site's `www` URLs are the ones search engines have indexed. **Leave the MX and SPF records alone**: info@ and patrick@ mail runs on Google Workspace. Wait until https://bayareatrackclub.org serves this site with a valid certificate.
 4. **Then cancel Squarespace: the website plan only.** Keep the domain registration (it renews 2027-08-09) and Google Workspace, whichever account bills them. The old site's four pages are archived in `~/Developer/batc_archive/`; the 13 unlinked pages listed in its `REPORT.md` were not archived and disappear with the plan.
 
 When it goes live, rewrite this section.
@@ -105,7 +111,10 @@ The full source is kept in `index.html`, between `<!-- PARKED: the Summer sectio
   - The Squarespace originals carry GPS coordinates.
 - **Verify after stripping**: no Exif, XMP or IPTC remains, and the decoded pixels match the original. Hash the decoder's raw samples; a BMP or TIFF export carries DPI in its header and gives false mismatches.
 - **Size**: in-page photos at most 1600px on the long edge; a full-bleed hero at least 1920px wide. If a photo must be resized, resize (one encode, quality about 82), then strip losslessly.
-- **Photo credits**: the site's photos are Patrick Wales-Dinan's own and carry no credit line, by the owner's instruction (recorded in `README.md`, "Photos"). Don't flag them as credit-pending. A photo from anyone else is credited ("Photo: Name" in its `figcaption`, recorded in `README.md`) and doesn't go live until it is.
+- **Photo credits**: the site's photos are Patrick Wales-Dinan's own and carry no credit line, by the owner's instruction (recorded in `README.md`, "Photos"). Don't flag them as credit-pending. A photo by anyone else:
+  - **Known photographer**: must be credited before go-live, as "Photo: Name" in its `figcaption` and recorded in `README.md`.
+  - **Unknown photographer**: recorded as unknown in `README.md`. That doesn't block go-live.
+  - If an unknown photographer becomes known, add the credit. That applies to the coach portrait, if Patrick remembers who took it.
 
 ## Working style
 
