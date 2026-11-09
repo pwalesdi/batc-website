@@ -2,30 +2,31 @@
 
 Working rules for this repo. Photo sources, credits and the font decision are in `README.md`.
 
-## Status: NOT LIVE
+## Status
 
-**This site is not live.** bayareatrackclub.org still points at the old Squarespace site.
-- The repo is on GitHub as `origin`, https://github.com/pwalesdi/batc-website, and it's public. Note the hyphen: the local folder is `batc_website`, with an underscore.
-- GitHub Pages is set in the repo's settings on github.com. `gh` isn't installed here, so the owner does it there: deploy from branch `main`, folder `/` (root), custom domain `bayareatrackclub.org` (matching the `CNAME` file). Until DNS moves, the new site can't be reached anywhere but locally (see step 2). Work locally: `python3 -m http.server 8000` from the repo root, then http://localhost:8000/ (root-absolute paths don't resolve from `file://`). The local server doesn't serve `/coaches` from `coaches.html` the way GitHub Pages does, so test the stubs as `/coaches.html`.
+The site is **live at bayareatrackclub.org** (GitHub Pages, served from `main`, folder `/`), since 9 November 2026. A push to `main` is on the public web in about a minute. There is no staging, so test locally first: `python3 -m http.server 8000` from the repo root, then load the pages you touched at http://localhost:8000/ and check the server log for 404s. Never delete or edit `CNAME`.
+- **No other preview exists.** https://pwalesdi.github.io/batc-website/ redirects to the domain, and root-absolute paths don't resolve from `file://`. The local server doesn't serve `/coaches` from `coaches.html` the way GitHub Pages does, so test the stubs locally as `/coaches.html`.
+- **No gaps on any rendered page, before every push.** This must print nothing:
+  `for f in $(git ls-files '*.html'); do perl -0777 -pe 's/<!--.*?-->//gs' "$f" | grep -HnE --label="$f" 'class="gap|class="confirm'; done; git grep -n 'GAP:' -- '*.html'`
+  - The first part strips HTML comments before searching, because commented-out markup doesn't render. The parked Summer section's gap and "to confirm" block therefore don't count.
+  - The second part catches `<!-- GAP: -->` notes, which are comments by design.
+  - `README.md`, "Outstanding", lists what's still open.
+- The repo is `origin`, https://github.com/pwalesdi/batc-website, and it's public. Note the hyphen: the local folder is `batc_website`, with an underscore. `gh` isn't installed here, so the owner changes repo and Pages settings on github.com.
+- **DNS** is at Squarespace Domains, the registrar.
+  - The apex's A records point at GitHub Pages: `185.199.108.153`, `185.199.109.153`, `185.199.110.153` and `185.199.111.153`.
+  - `www` is a CNAME to `pwalesdi.github.io`, and GitHub redirects it to the apex.
+  - **Leave the MX and SPF records alone**: info@ and patrick@ mail runs on Google Workspace.
 
-Before it goes live, in this order:
+Still to do, in this order:
 
-1. **No gaps on any rendered page.** This must print nothing:
-   `for f in $(git ls-files '*.html'); do perl -0777 -pe 's/<!--.*?-->//gs' "$f" | grep -HnE --label="$f" 'class="gap|class="confirm'; done; git grep -n 'GAP:' -- '*.html'`
-   - The first part strips HTML comments before searching, because commented-out markup doesn't render. The parked Summer section's gap and "to confirm" block therefore don't count.
-   - The second part catches `<!-- GAP: -->` notes, which are comments by design.
-   - `README.md`, "Outstanding", lists what's still open.
-2. **GitHub Pages**: the repo exists and `main` is pushed.
-   - Pages deploys from `main`, folder `/` (root), with the custom domain `bayareatrackclub.org`, the apex and the canonical host (see Paths). The `CNAME` file in the repo root holds that domain; never delete or edit it.
-   - **The github.io address is not a preview.** With a custom domain set, https://pwalesdi.github.io/batc-website/ 301-redirects to bayareatrackclub.org, which shows Squarespace until DNS moves. montevistaxc.com behaves the same way. Without a custom domain, the site would sit under `/batc-website/`, where root-absolute paths break.
-   - Preview locally; after DNS moves, check on the domain itself.
-3. **DNS**: at Squarespace Domains (the registrar):
-   - Point the apex's A records at GitHub Pages: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`. These are GitHub's published addresses, the same ones montevistaxc.com uses.
-   - Make `www` a CNAME to `pwalesdi.github.io`, the account's host, not the repo's. `www` addresses then redirect to the apex.
-   - Optionally, verify the domain in the GitHub account's Pages settings (a TXT record), so no other account can claim it. The old site's `www` URLs are the ones search engines have indexed. **Leave the MX and SPF records alone**: info@ and patrick@ mail runs on Google Workspace. Wait until https://bayareatrackclub.org serves this site with a valid certificate.
-4. **Then cancel Squarespace: the website plan only.** Keep the domain registration (it renews 2027-08-09) and Google Workspace, whichever account bills them. The old site's four pages are archived in `~/Developer/batc_archive/`; the 13 unlinked pages listed in its `REPORT.md` were not archived and disappear with the plan.
+1. **HTTPS.** GitHub issues a certificate for bayareatrackclub.org once it has seen the new DNS. Until then, https gives a certificate error and the site works over http only.
+   - Once the certificate is issued, the owner ticks **Enforce HTTPS** in the repo's Pages settings.
+   - Then check: https://bayareatrackclub.org/ and https://www.bayareatrackclub.org/ load with a valid certificate, and http redirects to https.
+2. **Then cancel Squarespace: the website plan only.** Keep the domain registration (it renews 2027-08-09) and Google Workspace, whichever account bills them.
+   - The old site's four pages are archived in `~/Developer/batc_archive/`.
+   - The 13 unlinked pages listed in its `REPORT.md` were not archived, and disappear with the plan.
 
-When it goes live, rewrite this section.
+When both are done, delete this list.
 
 ## Git
 
@@ -102,7 +103,7 @@ The full source is kept in `index.html`, between `<!-- PARKED: the Summer sectio
 1. Replace the gap and the `.confirm` block with the confirmed copy, leaving no markers.
 2. Remove the comment wrapper around the section, and the one around the Summer menu link on every page with a header, so the headers stay identical.
 3. Check that the opening section's "from June into August" still agrees with the dates.
-4. Verify at 390 and 1280, and run the go-live check in Status.
+4. Verify at 390 and 1280, and run the gap check in Status.
 
 ## Photos
 
@@ -116,8 +117,8 @@ The full source is kept in `index.html`, between `<!-- PARKED: the Summer sectio
 - **Verify after stripping**: no Exif, XMP or IPTC remains, and the decoded pixels match the original. Hash the decoder's raw samples; a BMP or TIFF export carries DPI in its header and gives false mismatches.
 - **Size**: in-page photos at most 1600px on the long edge; a full-bleed hero at least 1920px wide. If a photo must be resized, resize (one encode, quality about 82), then strip losslessly.
 - **Photo credits**: the site's photos are Patrick Wales-Dinan's own and carry no credit line, by the owner's instruction (recorded in `README.md`, "Photos"). Don't flag them as credit-pending. A photo by anyone else:
-  - **Known photographer**: must be credited before go-live, as "Photo: Name" in its `figcaption` and recorded in `README.md`.
-  - **Unknown photographer**: recorded as unknown in `README.md`. That doesn't block go-live.
+  - **Known photographer**: must be credited before the photo is pushed, as "Photo: Name" in its `figcaption` and recorded in `README.md`.
+  - **Unknown photographer**: recorded as unknown in `README.md`. That doesn't block pushing it.
   - If an unknown photographer becomes known, add the credit. That applies to the coach portrait, if Patrick remembers who took it.
 
 ## Working style
