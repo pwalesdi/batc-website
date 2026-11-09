@@ -70,8 +70,6 @@ No other old address has a stub. That covers `/home`, the 2017 blog and the athl
 ## Outstanding
 
 - **Kinsey Pogue**: the Coaches section shows only her name and "Assistant Coach". Her photo, a two- or three-sentence summary and her bio page at `/kinsey-pogue/` will follow once her bio exists.
+- **Summer 2027**: the Summer section and its menu link are parked, commented out in the source and not shown. They stay that way until Patrick confirms the dates, location, days, times and price. The parked source keeps the gap, the "to confirm" block from the old site and the Mammoth Lakes paragraph. CLAUDE.md, "Summer section", says how to bring it back.
 
-Still marked on the page (`.gap` is a missing piece; `.confirm` is unconfirmed copy from the old site):
-
-- **Summer 2027 dates**: unknown.
-- **Summer details**: where, when and cost, carried over from the old site. These stay marked "to confirm" until Patrick sets the 2027 dates.
+No gaps show on any page. The rendered-page check is in CLAUDE.md, "Status".

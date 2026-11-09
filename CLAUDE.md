@@ -4,12 +4,18 @@ Working rules for this repo. Photo sources, credits and the font decision are in
 
 ## Status: NOT LIVE
 
-**This site is not live.** bayareatrackclub.org still points at the old Squarespace site; nothing in this repo is deployed, and there is no remote yet. Work locally: `python3 -m http.server 8000` from the repo root, then http://localhost:8000/ (root-absolute paths don't resolve from `file://`). The local server doesn't serve `/coaches` from `coaches.html` the way GitHub Pages does, so test the stubs as `/coaches.html`.
+**This site is not live.** bayareatrackclub.org still points at the old Squarespace site.
+- The repo is on GitHub as `origin`, https://github.com/pwalesdi/batc-website, and it's public. Note the hyphen: the local folder is `batc_website`, with an underscore.
+- GitHub Pages is off, so nothing is deployed. Work locally: `python3 -m http.server 8000` from the repo root, then http://localhost:8000/ (root-absolute paths don't resolve from `file://`). The local server doesn't serve `/coaches` from `coaches.html` the way GitHub Pages does, so test the stubs as `/coaches.html`.
 
 Before it goes live, in this order:
 
-1. **No gaps left**: `grep -rnE 'class="gap|class="confirm|GAP:' --include='*.html' .` prints nothing (see Content). `README.md`, "Outstanding", lists what's still open.
-2. **GitHub Pages**: create the GitHub repo, add the remote, push `main`, turn on Pages from `main`, and set the custom domain to `bayareatrackclub.org`, the apex and the canonical host (see Paths), with a matching `CNAME` file. Check the site on its github.io address first.
+1. **No gaps on any rendered page.** This must print nothing:
+   `for f in $(git ls-files '*.html'); do perl -0777 -pe 's/<!--.*?-->//gs' "$f" | grep -HnE --label="$f" 'class="gap|class="confirm'; done; git grep -n 'GAP:' -- '*.html'`
+   - The first part strips HTML comments before searching, because commented-out markup doesn't render. The parked Summer section's gap and "to confirm" block therefore don't count.
+   - The second part catches `<!-- GAP: -->` notes, which are comments by design.
+   - `README.md`, "Outstanding", lists what's still open.
+2. **GitHub Pages**: the repo exists and `main` is pushed. Turn on Pages from `main` only when the owner says, and set the custom domain to `bayareatrackclub.org`, the apex and the canonical host (see Paths), with a matching `CNAME` file. Check the site on its github.io address first.
 3. **DNS**: at Squarespace Domains (the registrar), point the apex's A and AAAA records at GitHub Pages. Make `www` a CNAME to the GitHub Pages host, so `www` addresses redirect to the apex. The old site's `www` URLs are the ones search engines have indexed. **Leave the MX and SPF records alone**: info@ and patrick@ mail runs on Google Workspace. Wait until https://bayareatrackclub.org serves this site with a valid certificate.
 4. **Then cancel Squarespace: the website plan only.** Keep the domain registration (it renews 2027-08-09) and Google Workspace, whichever account bills them. The old site's four pages are archived in `~/Developer/batc_archive/`; the 13 unlinked pages listed in its `REPORT.md` were not archived and disappear with the plan.
 
@@ -22,7 +28,7 @@ When it goes live, rewrite this section.
 
 ## Structure
 
-- **One page for the program**: `index.html`. Sections in this order: what it is (`#about`), `#winter`, `#summer`, `#join`, `#coaches`, `#contact`. No further program pages unless the owner asks.
+- **One page for the program**: `index.html`. Sections in this order: what it is (`#about`), `#winter`, `#summer` (parked, see "Summer section"), `#join`, `#coaches`, `#contact`. No further program pages unless the owner asks.
 - **Coach bios live on their own pages** at `/<first>-<last>/index.html`: `/patrick-wales-dinan/` now, and `/kinsey-pogue/` once her bio exists. They serve a different search from the program page, which is why they're separate.
   - Each has its own `<title>`, meta description and canonical link, and is listed in `sitemap.xml`.
   - The home page's Coaches section stays short: photo, name, title, two or three sentences, and a link to the full bio.
@@ -63,7 +69,7 @@ When it goes live, rewrite this section.
 ## Content
 
 - **Nothing invented.** Copy comes from the owner, or from the old site's archive once the owner has decided to keep it. Carry nothing over from the old site that hasn't been decided.
-- **Gaps are marked, never filled with placeholder prose.** A missing piece is a `.gap` element saying what's missing (`<span class="gap">` inline). Unconfirmed copy carried over from the old site sits inside a `.confirm` block. Gaps in `<head>` are `<!-- GAP: ... -->` comments. Nothing goes live with any of the three.
+- **Gaps are marked, never filled with placeholder prose.** A missing piece is a `.gap` element saying what's missing (`<span class="gap">` inline). Unconfirmed copy carried over from the old site sits inside a `.confirm` block. Gaps in `<head>` are `<!-- GAP: ... -->` comments. Nothing goes live with any of the three on a rendered page. Markup inside an HTML comment, like the parked Summer section, doesn't render.
 - **Final copy** is verbatim and changes only on the owner's instruction. That covers the opening section (`#about`, what BATC is and who it's for, which has no heading), the Winter section, the Mammoth Lakes paragraph in Summer, the checks wording in How to join, and Patrick Wales-Dinan's bio, which is on `/patrick-wales-dinan/` in full with nothing hidden.
   - The bio links "Monte Vista High School" to https://montevistaxc.com/team/patrick-wales-dinan/ on purpose: a cross-domain link for search. It stays with the bio, on the bio page only. Keep the address exact; it is that page's canonical.
   - The home page summary is drawn from the bio's own opening paragraph, with no new claims. If the opening changes, check the summary.
@@ -71,6 +77,22 @@ When it goes live, rewrite this section.
 - Brandon Lawrence is off the site entirely. The Mammoth trip never shows a cost figure. There's no Twilight 5K (not scheduled for 2027) and no middle school line.
 - **Email is patrick@bayareatrackclub.org everywhere on the site.** info@ isn't used, though its mailbox still exists (see Status, DNS).
 - The Oak Hill Park map link is `https://www.google.com/maps/search/?api=1&query=37.843143%2C-121.984186`. Never a goo.gl short link.
+
+## Summer section (parked)
+
+The Summer section and its menu link are commented out on every page with a header until the 2027 summer program is set. The opening section already tells readers that summer runs from June into August.
+
+The full source is kept in `index.html`, between `<!-- PARKED: the Summer section` and `END PARKED Summer section -->`:
+- the "Summer dates" gap
+- the "From the old site · to confirm" block (Oak Hill Park, Monday through Saturday 7:45am, $500)
+- the final Mammoth Lakes paragraph
+
+**To bring it back, the owner must confirm all five: the 2027 dates, the location, the days, the times and the price.** Then, in one commit:
+
+1. Replace the gap and the `.confirm` block with the confirmed copy, leaving no markers.
+2. Remove the comment wrapper around the section, and the one around the Summer menu link on every page with a header, so the headers stay identical.
+3. Check that the opening section's "from June into August" still agrees with the dates.
+4. Verify at 390 and 1280, and run the go-live check in Status.
 
 ## Photos
 
