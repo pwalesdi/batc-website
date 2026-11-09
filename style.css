@@ -68,8 +68,6 @@ p,ul,ol,figure{margin:0}
 /* The hero is square (1440 × 1440); these crops keep both runners and the ridge in frame. */
 .hero img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 50%}
 @media (min-width:760px){.hero img{aspect-ratio:2/1;max-height:720px;object-position:50% 44%}}
-.credit{font-size:.75rem;line-height:1.4;color:var(--ink-2);padding-top:6px;text-align:right}
-.hero .credit{padding-right:var(--gutter);padding-left:var(--gutter)}
 
 /* Sections */
 .section{padding:44px 0}
@@ -112,8 +110,11 @@ h3{font-size:1.25rem}
 /* Coaches: one row per coach, photo then text; side by side from 760px */
 .coaches{display:grid;gap:48px}
 .coach{display:grid;gap:16px}
-@media (min-width:760px){.coach{grid-template-columns:200px minmax(0,1fr);gap:32px;align-items:start}}
-.coach-photo{aspect-ratio:4/5;width:100%;max-width:240px;display:flex;align-items:center;justify-content:center;text-align:center}
+@media (min-width:760px){
+  .coach{grid-template-columns:200px minmax(0,1fr);gap:32px;align-items:start}
+  .coach.no-photo .coach-text{grid-column:2}
+}
+.coach-photo{aspect-ratio:4/5;width:100%;max-width:240px;object-fit:cover;border-radius:4px}
 .coach-text{max-width:var(--measure)}
 .coach .role{margin-top:4px;color:var(--ink-2)}
 .coach-text > .gap,.summary,.bio{margin-top:16px}

@@ -8,9 +8,9 @@ Working rules for this repo. Photo sources, credits and the font decision are in
 
 Before it goes live, in this order:
 
-1. **No gaps left**: `grep -rnE 'class="gap|class="confirm|GAP:' --include='*.html' .` prints nothing (see Content). Fonts chosen and self-hosted; every photo credited.
-2. **GitHub Pages**: create the GitHub repo, add the remote, push `main`, turn on Pages from `main`, and add a `CNAME` file for `www.bayareatrackclub.org`, the canonical host (see Paths). Check the site on its github.io address first.
-3. **DNS**: at Squarespace Domains (the registrar), point the domain's A and CNAME records at GitHub Pages. **Leave the MX and SPF records alone**: info@ and patrick@ mail runs on Google Workspace. Wait until https://bayareatrackclub.org serves this site with a valid certificate.
+1. **No gaps left**: `grep -rnE 'class="gap|class="confirm|GAP:' --include='*.html' .` prints nothing (see Content). `README.md`, "Outstanding", lists what's still open.
+2. **GitHub Pages**: create the GitHub repo, add the remote, push `main`, turn on Pages from `main`, and set the custom domain to `bayareatrackclub.org`, the apex and the canonical host (see Paths), with a matching `CNAME` file. Check the site on its github.io address first.
+3. **DNS**: at Squarespace Domains (the registrar), point the apex's A and AAAA records at GitHub Pages. Make `www` a CNAME to the GitHub Pages host, so `www` addresses redirect to the apex. The old site's `www` URLs are the ones search engines have indexed. **Leave the MX and SPF records alone**: info@ and patrick@ mail runs on Google Workspace. Wait until https://bayareatrackclub.org serves this site with a valid certificate.
 4. **Then cancel Squarespace: the website plan only.** Keep the domain registration (it renews 2027-08-09) and Google Workspace, whichever account bills them. The old site's four pages are archived in `~/Developer/batc_archive/`; the 13 unlinked pages listed in its `REPORT.md` were not archived and disappear with the plan.
 
 When it goes live, rewrite this section.
@@ -41,7 +41,7 @@ When it goes live, rewrite this section.
 ## Paths
 
 - **Root-absolute**: `/style.css`, `/images/2021-07-hillside-run.jpg`. Never relative paths, never `github.io` URLs.
-- **Canonical host: `https://www.bayareatrackclub.org/`**, the same as the old site's canonical, so search engines see the move as the same address. Full addresses only where a spec requires them: canonical links (on every page, including the stubs), Open Graph (none yet), `sitemap.xml` and `robots.txt`.
+- **Canonical host: `https://bayareatrackclub.org/`**, the apex, never `www` (the owner's choice). The old Squarespace site used `www`, so `www` must redirect to the apex once DNS moves. Full addresses only where a spec requires them: canonical links (on every page, including the stubs), Open Graph (none yet), `sitemap.xml` and `robots.txt`.
 
 ## Layout
 
@@ -67,7 +67,8 @@ When it goes live, rewrite this section.
   - The bio links "Monte Vista High School" to https://montevistaxc.com/team/patrick-wales-dinan/ on purpose: a cross-domain link for search. It stays with the bio, on the bio page only. Keep the address exact; it is that page's canonical.
   - The home page summary is drawn from the bio's own opening paragraph, with no new claims. If the opening changes, check the summary.
 - One fact, one place: a date or price is stated once. The old site gave the 5K two different dates.
-- Brandon Lawrence is off the site entirely. The Mammoth trip never shows a cost figure.
+- Brandon Lawrence is off the site entirely. The Mammoth trip never shows a cost figure. There's no Twilight 5K (not scheduled for 2027) and no middle school line.
+- **Email is patrick@bayareatrackclub.org everywhere on the site.** info@ isn't used, though its mailbox still exists (see Status, DNS).
 - The Oak Hill Park map link is `https://www.google.com/maps/search/?api=1&query=37.843143%2C-121.984186`. Never a goo.gl short link.
 
 ## Photos
@@ -81,7 +82,7 @@ When it goes live, rewrite this section.
   - The Squarespace originals carry GPS coordinates.
 - **Verify after stripping**: no Exif, XMP or IPTC remains, and the decoded pixels match the original. Hash the decoder's raw samples; a BMP or TIFF export carries DPI in its header and gives false mismatches.
 - **Size**: in-page photos at most 1600px on the long edge; a full-bleed hero at least 1920px wide. If a photo must be resized, resize (one encode, quality about 82), then strip losslessly.
-- **Photo credits are not optional.** Every photo on the page shows "Photo: Name" in its `figcaption`, and the credit is recorded in `README.md`. An unknown credit is a gap, and that photo doesn't go live until it's filled.
+- **Photo credits**: the site's photos are Patrick Wales-Dinan's own and carry no credit line, by the owner's instruction (recorded in `README.md`, "Photos"). Don't flag them as credit-pending. A photo from anyone else is credited ("Photo: Name" in its `figcaption`, recorded in `README.md`) and doesn't go live until it is.
 
 ## Working style
 

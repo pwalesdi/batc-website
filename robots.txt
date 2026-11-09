@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.bayareatrackclub.org/sitemap.xml
+Sitemap: https://bayareatrackclub.org/sitemap.xml

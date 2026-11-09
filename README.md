@@ -18,13 +18,16 @@ Preview: run `python3 -m http.server 8000` in this folder, then open http://loca
 
 ## Photos
 
-The originals are in `~/Developer/batc_archive/images/` and are never modified. Each repo copy below had its metadata stripped losslessly, and its decoded pixels were verified identical to the original.
+**The site's photos are Patrick Wales-Dinan's own, so they carry no credit line.** The owner confirmed this on 9 November 2026. Don't flag them as credit-pending.
 
-| Repo file | On the page | Original | Taken | Credit |
-|---|---|---|---|---|
-| `images/2021-07-hillside-run.jpg` | Hero | `site-wide/instagram-4-CRb5WlxHA9p.jpeg`, 1440 × 1440. Squarespace's copy of an Instagram post; no metadata in the file. | Posted 17 Jul 2021 | **Unknown: gap** |
-| `images/2022-06-sunset-workout.jpg` | Winter | `site-wide/instagram-2-CfJsuSKJmDr.jpeg`, 1440 × 1080. Squarespace's copy of an Instagram post; no metadata in the file. | Posted 23 Jun 2022 | **Unknown: gap** |
-| `images/venmo-qr.png` | How to join (screens 760px and wider) | `sign-up/MyVenmoQRCode.png`, 978 × 1863 phone screenshot. Dropped the `eXIf`, `pHYs` and `iDOT` chunks and kept the colour profile. | — | Not a photo |
+Each repo copy below had its metadata stripped losslessly, and its decoded pixels were verified identical to its source. Sources are never modified.
+
+| Repo file | On the page | Source | Taken |
+|---|---|---|---|
+| `images/2021-07-hillside-run.jpg` | Hero | `~/Developer/batc_archive/images/site-wide/instagram-4-CRb5WlxHA9p.jpeg`, 1440 × 1440. Squarespace's copy of an Instagram post; no metadata in the file. | Posted 17 Jul 2021 |
+| `images/2022-06-sunset-workout.jpg` | Winter | `~/Developer/batc_archive/images/site-wide/instagram-2-CfJsuSKJmDr.jpeg`, 1440 × 1080. Squarespace's copy of an Instagram post; no metadata in the file. | Posted 23 Jun 2022 |
+| `images/coach-wales-dinan.jpg` | Coaches, and the top of `/patrick-wales-dinan/` | `~/Developer/mvxctf_website/assets/img/coaches/wales-dinan.jpg`, 710 × 887 (4:5). This is the Monte Vista site's coach card, cut from that repo's `2022-track-coach-wales-dinan.jpg`; reused on both sites by the owner's choice. It's a photo of Patrick, so not taken by him, and neither site records the photographer. | 2022 track season |
+| `images/venmo-qr.png` | How to join (screens 760px and wider) | `~/Developer/batc_archive/images/sign-up/MyVenmoQRCode.png`, 978 × 1863 phone screenshot. Dropped the `eXIf`, `pHYs` and `iDOT` chunks and kept the colour profile. | Not a photo |
 
 **The hero is below the 1920px minimum.** It's 1440px wide, the size Instagram keeps. On phones, the main audience, it's sharp: a 390px-wide screen at 3× density needs 1170px. On a 1280px desktop it's shown slightly enlarged, and on high-density desktop screens about 1.8×, so it looks a little soft there. If the original phone photo turns up, replace this file with a version cut from it.
 
@@ -49,17 +52,25 @@ The old Squarespace pages people may have bookmarked each have a redirect stub t
 | `/coaches` | `coaches.html` | `/#coaches` |
 | `/sign-up` | `sign-up.html` | `/#join` |
 
-These follow the mvxctf stubs' pattern: a canonical link to `https://www.bayareatrackclub.org/`, an instant meta refresh and a visible link. They have no header or footer, and stay out of any sitemap.
+These follow the mvxctf stubs' pattern: a canonical link to `https://bayareatrackclub.org/`, an instant meta refresh and a visible link. They have no header or footer, and stay out of any sitemap.
 
 No other old address has a stub. That covers `/home`, the 2017 blog and the athlete pages listed in `~/Developer/batc_archive/REPORT.md`, which will return 404.
 
-## Open gaps
+## Settled (November 2026)
 
-These are marked on the page: `.gap` elements are missing pieces, and the `.confirm` block is unconfirmed copy from the old site.
+- **No Twilight 5K** on the page: it isn't scheduled for 2027.
+- **No middle school line.**
+- **Email**: patrick@bayareatrackclub.org everywhere on the site; info@ isn't used.
+- **Photos**: Patrick's own, uncredited (see "Photos").
 
-- What BATC is and who it's for (being written).
-- Summer: dates; the middle school line (wording, year and contact address); the Mammoth Lakes trip wording (no cost figure); the Twilight 5000m date and time. Where, when and cost are carried over from the old site and need confirming.
-- How to join: who checks are made out to.
-- Coaches: Patrick Wales-Dinan's photo (not chosen; a gap on both the home page and his page). Kinsey Pogue's photo, summary and bio page (none exist yet).
-- Photo credits for both photos.
-- Favicon.
+## Outstanding
+
+- **Kinsey Pogue**: the Coaches section shows only her name and "Assistant Coach". Her photo, a two- or three-sentence summary and her bio page at `/kinsey-pogue/` will follow once her bio exists.
+
+Still marked on the page (`.gap` is a missing piece; `.confirm` is unconfirmed copy from the old site):
+
+- **Summer 2027 dates**: unknown.
+- **What BATC is and who it's for**: being written.
+- **Summer details**: where, when and cost, carried over from the old site and not yet confirmed. Also the Mammoth Lakes trip wording (no cost figure).
+- **How to join**: who checks are made out to.
+- **Favicon**: an HTML comment in each page's `<head>`, not visible.
