@@ -70,11 +70,19 @@ When both are done, delete this list.
 
 ## Identity
 
-- **Not a Monte Vista property, and must not look like one.** No Monte Vista names, logos or uniforms in photos, no red accent, and none of the Monte Vista site's fonts (Archivo, Source Serif 4) or its look (condensed uppercase labels, warm off-white panels).
-- Colours are the tokens at the top of `style.css`. Use them; don't add one-off colours.
+- **Not a Monte Vista property, and must not look like one.** No Monte Vista names, logos or uniforms in photos, and none of the Monte Vista site's fonts (Archivo, Source Serif 4) or its look (condensed uppercase labels, crimson on white, grey-white panels).
+- **Red is permitted as an accent only**, in the bridge red `--accent` #C0362C, with `--accent-ink` #9E2B22 for red text.
+  - Use it for buttons, link underlines and focus rings.
+  - Never use it as the lead colour, a band or section background, or on headings, the header or the nav.
+  - **Why the distinction matters:** Monte Vista's site leads with crimson (#C0102A) on white. This red-orange comes from the Golden Gate Bridge in the old site's banner. Kept small inside a sunset palette, it reads as part of the sunset. Give it a bigger role, or shift it toward crimson, and the two sites start to look alike.
+- **The cream page ground, `--paper` #FFF6E6, is deliberate** (the owner's decision, November 2026). Monte Vista's panels are #F6F3F1, a greyer off-white. Under the orange palette, this one reads nothing like theirs.
+- **Colours are the tokens at the top of `style.css`**: the sunset palette. `README.md`, "Colours", has the hex values and every contrast ratio. Use the tokens; don't add one-off colours.
+  - Yellow never carries text; it's the stripe under the header.
+  - Deep orange carries slate type only: no red, and no secondary slate.
+  - Any new text-on-background pair needs 4.5:1. Check it and add it to the README table first.
 - **Fonts**:
-  - Fraunces 600 for the wordmark, headings and figures; Jost 400 and 600 for everything else.
-  - They're self-hosted in `/fonts/` (latin subsets from @fontsource 5.3.0) with their OFL licences, and the page preloads Jost 400 and Fraunces 600.
+  - Jost 600 in capitals, letterspaced .24em, for the wordmark; Fraunces 600 for headings and figures; Jost 400 and 600 for everything else.
+  - They're self-hosted in `/fonts/` (latin subsets from @fontsource 5.3.0) with their OFL licences. Each page with a header preloads Jost 400, Jost 600 (the wordmark) and Fraunces 600.
   - Bold is 600; there is no 700, so the browser would fake it. Add a font file before using a new weight or italic.
 
 ## Content
@@ -103,7 +111,10 @@ The full source is kept in `index.html`, between `<!-- PARKED: the Summer sectio
 1. Replace the gap and the `.confirm` block with the confirmed copy, leaving no markers.
 2. Remove the comment wrapper around the section, and the one around the Summer menu link on every page with a header, so the headers stay identical.
 3. Check that the opening section's "from June into August" still agrees with the dates.
-4. Verify at 390 and 1280, and run the gap check in Status.
+4. Recheck the section colours, so no two neighbouring sections share a background.
+   - Now, with Summer parked: about on paper, Winter `band`, How to join on paper, Coaches `band`, Contact `band-deep`.
+   - With Summer back between Winter and How to join: Summer on paper, How to join `band`, Coaches on paper. Contact stays `band-deep`.
+5. Verify at 390 and 1280, and run the gap check in Status.
 
 ## Photos
 
