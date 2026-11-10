@@ -39,7 +39,7 @@ When both are done, delete this list.
 - **Coach bios live on their own pages** at `/<first>-<last>/index.html`: `/patrick-wales-dinan/` now, and `/kinsey-pogue/` once her bio exists. They serve a different search from the program page, which is why they're separate.
   - Each has its own `<title>`, meta description, canonical link and link-preview tags (see Paths), and is listed in `sitemap.xml`.
   - The home page's Coaches section stays short: photo, name, title, two or three sentences, and a link to the full bio.
-- **The header and footer are the same on every page**, except the wordmark: `<h1 class="wordmark">` on the home page, `<p class="wordmark"><a href="/">` elsewhere. Nav links are root-absolute (`/#winter`), so they work from any page. Change the header or footer on every page in the same commit.
+- **The header and footer are the same on every page**, except the wordmark tag: `<h1 class="wordmark"><a href="/">` on the home page, `<p class="wordmark"><a href="/">` elsewhere. The wordmark links home on every page and underlines on hover, so no page is a dead end. Nav links are root-absolute (`/#winter`), so they work from any page. Change the header or footer on every page in the same commit.
 - **`sitemap.xml`** lists the home page and each coach page, and never the stubs. `robots.txt` points to it.
 - **No favicon**, by the owner's decision. Each page with a header carries `<link rel="icon" href="data:,">` so browsers don't request `/favicon.ico`. The stubs don't, like the mvxctf stubs.
 - **Redirect stubs** for the old Squarespace addresses, in the mvxctf stubs' pattern:
@@ -65,12 +65,15 @@ When both are done, delete this list.
 
 - **Phone first.** The base CSS is the phone layout; wider layouts are added with `min-width` media queries.
 - **Verify at 390px and 1280px** after every change, with no sideways scroll at 390. Check the server log for 404s.
-  - 1280: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --window-size=1280,5000 --screenshot=<scratch dir>/1280.png http://localhost:8000/`. The layout uses no `vh` heights, so a tall window gives a true full-page shot.
+  - 1280: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --window-size=1280,720 --screenshot=<scratch dir>/1280.png http://localhost:8000/`.
+  - **The desktop hero's height is capped at half the window** (`50vh`), so judge the fold at real window sizes: 1280×720, and 1920×960 when the hero changes.
+  - A tall window draws the hero taller than any real screen. Use one only to check the rest of the page, or capture a full page by scrolling a real-size window and stitching the shots.
   - 390: **`--window-size=390` doesn't work.** Chrome won't make a window narrower than 500px, so it lays the page out at 500 and crops the picture, which hides real overflow. Instead, screenshot a scratch page holding `<iframe src="http://localhost:8000/" width="390" height="6000">` at window width 500, and crop to 390. Measure overflow inside that iframe: `scrollWidth` must equal `clientWidth`.
 
 ## Identity
 
 - **Not a Monte Vista property, and must not look like one.** No Monte Vista names, logos or uniforms in photos, and none of the Monte Vista site's fonts (Archivo, Source Serif 4) or its look (condensed uppercase labels, crimson on white, grey-white panels).
+  - **One approved exception:** the Sierra run, the hero's source photo. One runner's grey T-shirt carries Monte Vista's Mustang crest, and the owner chose to leave it in (9 November 2026; see `README.md`, "Photos"). It covers that photo only. The rule still applies to every other photo.
 - **Red is permitted as an accent only**, in the bridge red `--accent` #C0362C, with `--accent-ink` #9E2B22 for red text.
   - Use it for buttons, link underlines and focus rings.
   - Never use it as the lead colour, a band or section background, or on headings, the header or the nav.
@@ -126,7 +129,12 @@ The full source is kept in `index.html`, between `<!-- PARKED: the Summer sectio
   - `sips` keeps GPS and adds Exif of its own, so it is never the last step.
   - The Squarespace originals carry GPS coordinates.
 - **Verify after stripping**: no Exif, XMP or IPTC remains, and the decoded pixels match the original. Hash the decoder's raw samples; a BMP or TIFF export carries DPI in its header and gives false mismatches.
-- **Size**: in-page photos at most 1600px on the long edge; a full-bleed hero at least 1920px wide. If a photo must be resized, resize (one encode, quality about 82), then strip losslessly.
+- **Size**: in-page photos at most 1600px on the long edge. If a photo must be resized, resize (one encode, quality about 82), then strip losslessly. The hero has two crops (see "Layout"):
+  - **Wide crop**: at least 2112px wide, the 1056px banner at 2× density.
+  - **Phone crop**: at least 1290px, a 430px-wide phone at 3×.
+- **iPhone HEIC originals** can't be stripped losslessly into a servable file, because only Safari shows HEIC.
+  - **Process**: decode the standard image, convert it to sRGB, crop and resize, and encode once (quality about 82). Then strip losslessly as above.
+  - **Where the HEIC goes**: the archive, never the repo. It carries GPS and face regions.
 - **Photo credits**: the site's photos are Patrick Wales-Dinan's own and carry no credit line, by the owner's instruction (recorded in `README.md`, "Photos"). Don't flag them as credit-pending. A photo by anyone else:
   - **Known photographer**: must be credited before the photo is pushed, as "Photo: Name" in its `figcaption` and recorded in `README.md`.
   - **Unknown photographer**: recorded as unknown in `README.md`. That doesn't block pushing it.

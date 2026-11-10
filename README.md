@@ -25,19 +25,31 @@ Each repo copy below had its metadata stripped losslessly, and its decoded pixel
 
 | Repo file | On the page | Source | Taken |
 |---|---|---|---|
-| `images/2022-06-sunset-hero.jpg` | Hero | `~/Developer/batc_archive/images/site-wide/instagram-2-CfJsuSKJmDr.jpeg`, 1440 × 1080. Squarespace's copy of an Instagram post; no metadata in the file. Cut without re-encoding (`jpegtran -crop 976x732+464+0`) to the 976 × 732 area right of the two foreground runners, so the sky leads and two distant runners stay in frame. Decoded pixels match the source, except along the new left edge, where chroma upsampling differs by at most 6/255. | Posted 23 Jun 2022 |
+| `images/2026-07-sierra-run-hero.jpg` | Hero on phones (under 760px) | `~/Developer/batc_archive/images/owner/2026-07-26-sierra-run.HEIC`, 4032 × 3024, an iPhone 14 Plus HEIC in Display P3, supplied by Patrick in November 2026. The 2560 × 1920 box from (280, 690), resized to 1296 × 972: the group head to toe, with the peaks behind. How it was made, and why it couldn't be lossless, is under the table. | 26 Jul 2026 |
+| `images/2026-07-sierra-run-hero-wide.jpg` | Hero at 760px and wider: a banner the width of the text column (at most 1056px), never taller than half the window | The same source. The full-width 4032 × 1512 box from (0, 690), 8:3, resized to 2112 × 792: the sky above the peaks down to the runners' shins. No 8:3 box from this photo holds both the peaks and the feet. When the half-window cap shortens the banner, it loses sky and shin equally (`object-position` 50% 50%). **The shin cut is deliberate; don't revisit it.** On 9 November 2026 Patrick compared it with a crop that kept the runners whole, feet included. That crop lost the peaks' tips and, at 1280 × 720, needed the half-window cap removed. He chose this one. | 26 Jul 2026 |
 | `images/2021-07-hillside-run.jpg` | Winter | `~/Developer/batc_archive/images/site-wide/instagram-4-CRb5WlxHA9p.jpeg`, 1440 × 1440. Squarespace's copy of an Instagram post; no metadata in the file. Shown 4:3 on the page (`object-fit`). | Posted 17 Jul 2021 |
 | `images/coach-wales-dinan.jpg` | Coaches, and the top of `/patrick-wales-dinan/` | `~/Developer/mvxctf_website/assets/img/coaches/wales-dinan.jpg`, 710 × 887 (4:5). This is the Monte Vista site's coach card, cut from that repo's `2022-track-coach-wales-dinan.jpg`; reused on both sites by the owner's choice. **Photographer unknown, carried over from montevistaxc.com.** That doesn't block publishing it. If Patrick remembers who took it, add the credit. | 2022 track season |
-| `images/link-preview.jpg` | Not on the page: it's the image shown when a page's link is shared (`og:image` and `twitter:image` on every page with a header) | Made from the sunset photo (`~/Developer/batc_archive/images/site-wide/instagram-2-CfJsuSKJmDr.jpeg`, the hero's source), so it's a new image, not a stripped copy. An 820 × 718 box from (520, 0), resized to 720 × 630 (Lanczos), sits beside a 480px `--sun-amber` panel reading "BAY AREA / TRACK / CLUB" in the wordmark's style (Jost 600, capitals, letterspacing .2em, 60px, `--ink`). Rendered in headless Chrome at 1200 × 630, one JPEG encode (quality 88, 4:4:4 chroma), no metadata, 157 KB. Keep it under about 300 KB, WhatsApp's limit for previews. | Posted 23 Jun 2022 (the photo) |
-| `images/venmo-qr.png` | How to join (screens 760px and wider) | `~/Developer/batc_archive/images/sign-up/MyVenmoQRCode.png`, 978 × 1863 phone screenshot. Dropped the `eXIf`, `pHYs` and `iDOT` chunks and kept the colour profile. | Not a photo |
+| `images/link-preview.jpg` | Not on the page: it's the image shown when a page's link is shared (`og:image` and `twitter:image` on every page with a header) | Made from the Sierra run photo (`~/Developer/batc_archive/images/owner/2026-07-26-sierra-run.HEIC`, the hero's source), so it's a new image, not a stripped copy. A 2160 × 1890 box from (450, 700) of the sRGB decode (see below), resized to 720 × 630 (Lanczos), sits beside a 480px `--sun-amber` panel reading "BAY AREA / TRACK / CLUB" in the wordmark's style (Jost 600, capitals, letterspacing .2em, 60px, `--ink`). Rendered in headless Chrome at 1200 × 630, one JPEG encode (quality 88, 4:4:4 chroma), no metadata, 209 KB. Keep it under about 300 KB, WhatsApp's limit for previews. | 26 Jul 2026 (the photo) |
+| `images/venmo-qr.png` | How to join (screens 760px and wider), shown 144px wide | `~/Developer/batc_archive/images/sign-up/MyVenmoQRCode.png`, a 978 × 1863 phone screenshot of Patrick's Venmo profile. Cut to the 659 × 659 square at (160, 801): the QR code plus its white quiet zone (4 modules). The avatar, name, handle, Venmo logo and caption are gone, because the Venmo button covers them. The crop was fully opaque, so the alpha channel was dropped. Its pixels match the source area exactly, and only the colour profile is kept. It decodes to the same payment link as the original (checked with Apple Vision), including from a 1× screenshot of the page. 324 KB. | Not a photo |
 
-**The hero is below the 1920px minimum.** It's 976px wide: Instagram's copy is 1440, and the crop keeps only the part right of the foreground runners.
-- **Phones**, the main audience: close to sharp. A 390px-wide screen at 3× density needs 1170px.
-- **Desktops**: enlarged. On a high-density screen at 1280px it's drawn about 2.6× and is visibly soft.
+**How the Sierra run crops were made.** Only Safari shows HEIC, so the original can't be stripped losslessly and served as it is. Each crop therefore has one encode, the CLAUDE.md resize path:
+1. Decode the standard image (the HDR gain map is ignored), and convert Display P3 to sRGB (relative colorimetric).
+2. Crop, and resize with Lanczos.
+3. Encode once as JPEG (quality 82, progressive, 4:2:0).
+4. Run `jpegtran -copy icc -optimize -progressive`. The decoded pixels were checked unchanged by this step.
 
-This is a known compromise, accepted on 9 November 2026: a slightly soft hero in the right palette beats a sharp one in a palette the owner dislikes. If the original phone photo turns up, cut the hero from it instead.
+The results carry only a JFIF header: no Exif, XMP or IPTC. The original's GPS position, face regions and camera data are not in the repo. Sizes: phone crop 322 KB, wide crop 405 KB.
 
-Earlier heroes were the summer 2022 Mammoth Lakes group run (`home/gallery-07-IMG_9565.jpg`), replaced so that the hero shows ordinary training, and then the hillside run. The sunset crop replaced the hillside run with the sunset palette (November 2026), and the hillside run moved to Winter. The full sunset frame isn't in the repo: in it, the shirtless foreground runner is the subject. The Summer section has no photo for now.
+**Sharp at every size.** The wide crop is 2112px, the 1056px banner at 2× density. The phone crop is 1296px, a 432px-wide phone at 3×.
+
+**The Monte Vista crest stays, by the owner's decision (9 November 2026).** The runner in the grey T-shirt wears a shield crest with Monte Vista's red Mustang. It's about 23px wide in the desktop banner, and it also shows in the link preview. This is an approved exception to CLAUDE.md's no-Monte-Vista-logos rule, for this photo only.
+
+Earlier heroes:
+1. The summer 2022 Mammoth Lakes group run (`home/gallery-07-IMG_9565.jpg`), swapped at the time for a photo of ordinary training. That was a preference, not a rule. The current hero is from the July 2026 Mammoth Lakes trip, and Patrick chose it knowing where it's from.
+2. The hillside run, which moved to Winter.
+3. The sunset crop (November 2026), which brought in the sunset palette. Neither sunset crop is in the repo any more. Their source is `~/Developer/batc_archive/images/site-wide/instagram-2-CfJsuSKJmDr.jpeg`; in the full frame, the shirtless foreground runner is the subject.
+
+The Sierra run, from the July 2026 Mammoth Lakes trip, replaced the sunset crop in November 2026. The Summer section has no photo for now.
 
 ## Colours
 
@@ -116,6 +128,7 @@ No other old address has a stub. That covers `/home`, the 2017 blog and the athl
 - **Favicon**: none.
 - **Checks**: the payee wording in How to join.
 - **Palette**: the sunset palette (see "Colours"). Red is an accent only, in the bridge red, and the cream ground stays.
+- **Hero**: the Sierra run, from the July 2026 Mammoth Lakes trip. Patrick's choice, made knowing where it's from. The desktop crop cuts the runners at the shins, by his choice over a feet-whole crop (see "Photos"). The Monte Vista crest on one runner's shirt stays (see "Photos").
 
 ## Outstanding
 

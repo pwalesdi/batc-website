@@ -60,9 +60,10 @@ p,ul,ol,figure{margin:0}
 /* The sunset stripe: yellow's one job is this highlight. */
 .site-header::after{content:"";display:block;height:6px;background:linear-gradient(90deg,var(--sun-orange),var(--sun-amber) 55%,var(--sun-yellow))}
 .header-inner{display:flex;flex-direction:column;gap:2px;padding-top:14px;padding-bottom:4px}
-/* The wordmark is the <h1> on the home page and a link home on other pages; it looks the same on both. */
+/* The wordmark links home on every page: inside the <h1> on the home page, a <p> elsewhere. It looks the same on both and underlines on hover, like other links. */
 .wordmark{font-family:var(--text);font-weight:600;line-height:1.2;font-size:1.0625rem;letter-spacing:.24em;text-transform:uppercase;text-wrap:balance}
 .wordmark a{color:inherit;text-decoration:none}
+.wordmark a:hover{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:.3em}
 .nav{display:flex;flex-wrap:wrap;column-gap:20px}
 .nav a{display:inline-block;padding:10px 0;color:var(--ink-2);text-decoration:none;font-size:.9375rem}
 .nav a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--accent)}
@@ -73,9 +74,16 @@ p,ul,ol,figure{margin:0}
 }
 
 /* Hero */
-/* The hero is 976 × 732 (4:3), cut from the sunset photo to the right of the two foreground runners. Phones show all of it; wider screens a 2:1 band through the glow and the trees. */
+/* Phones: the tall crop (1296 × 972), full width, shown whole at 4:3.
+   From 760px, index.html's <picture> swaps in the wide crop (2112 × 792, 8:3). It sits in the text column as a banner, with cream either side,
+   at the crop's own shape, and is never taller than half the window, so the opening text shows without scrolling. */
+.hero picture{display:block}
 .hero img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 50%}
-@media (min-width:760px){.hero img{aspect-ratio:2/1;max-height:720px;object-position:50% 46%}}
+@media (min-width:760px){
+  .hero{max-width:var(--maxw);margin:32px auto 0;padding:0 var(--gutter)}
+  .hero img{aspect-ratio:8/3;max-height:max(240px,50vh);border-radius:4px} /* when the cap bites, the crop loses sky and shin equally */
+  .hero + .section{padding-top:32px} /* the opening text: 32px under the banner, matching the space above it */
+}
 
 /* Sections */
 .section{padding:44px 0}
@@ -113,13 +121,16 @@ h3{font-size:1.25rem}
 .steps > li{counter-increment:step;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px}
 .steps > li::before{content:counter(step);display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--sun-orange);color:var(--ink);font-weight:600;margin-bottom:12px}
 .steps > li > * + *{margin-top:12px}
-@media (min-width:760px){.steps{grid-template-columns:1fr 1fr;gap:24px}}
+/* Side by side from 760px, each card its own height: Pay holds the QR and the checks wording, so it runs about twice as tall as Join, and stretching Join to match would leave it half empty. */
+@media (min-width:760px){.steps{grid-template-columns:1fr 1fr;gap:24px;align-items:start}}
 .club-no{font-family:var(--display);font-size:1.2em;white-space:nowrap}
 .btn{display:inline-block;background:var(--accent);color:var(--on-accent);text-decoration:none;font-weight:600;padding:12px 18px;border-radius:6px}
 .btn:hover{background:var(--accent-ink);color:var(--on-accent)}
 /* A QR code is no use on the phone showing it, so it appears only on wider screens. index.html's <picture> keeps phones from fetching it. */
 .qr{display:none}
-@media (min-width:760px){.qr{display:block}.qr img{width:200px}}
+/* 144px: the code itself is about 122px, roughly 2.5cm on a high-density laptop screen and 3cm on a standard monitor, enough for a phone camera.
+   The image's white margin is the code's required quiet zone (4 of its 53 modules, 11px); the negative margin lines the code itself up with the text. */
+@media (min-width:760px){.qr{display:block}.qr img{width:144px;margin-left:-11px}}
 
 /* Coaches: one row per coach, photo then text; side by side from 760px */
 .coaches{display:grid;gap:48px}

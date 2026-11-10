@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://bayareatrackclub.org/images/link-preview.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="A pink and orange sunset over a grass field and trees, beside the words Bay Area Track Club">
+<meta property="og:image:alt" content="A group of runners on a dirt road with the Sierra behind them, beside the words Bay Area Track Club">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://bayareatrackclub.org/images/link-preview.jpg">
 <!-- No favicon, by the owner's decision. The empty icon stops browsers requesting /favicon.ico. -->
@@ -27,7 +27,7 @@
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <h1 class="wordmark">Bay Area Track Club</h1>
+    <h1 class="wordmark"><a href="/">Bay Area Track Club</a></h1>
     <nav class="nav" aria-label="Sections">
       <a href="/#winter">Winter</a>
       <!-- <a href="/#summer">Summer</a> (parked with the Summer section) -->
@@ -40,8 +40,12 @@
 
 <main>
 
+  <!-- Phones get the tall crop; 760px and wider get the wide one, matching the hero breakpoint in style.css. Each screen downloads only its own file. -->
   <figure class="hero">
-    <img src="/images/2022-06-sunset-hero.jpg" width="976" height="732" alt="A pink and orange sunset sky over a grass field and trees, with two runners in the distance">
+    <picture>
+      <source media="(min-width:760px)" srcset="/images/2026-07-sierra-run-hero-wide.jpg" width="2112" height="792">
+      <img src="/images/2026-07-sierra-run-hero.jpg" width="1296" height="972" alt="A group of runners on a dirt road through sagebrush, with the Sierra behind them">
+    </picture>
   </figure>
 
   <section id="about" class="section">
@@ -110,11 +114,11 @@
           <h3>Pay</h3>
           <p>Pay by Venmo, or bring a check.</p>
           <p><a class="btn" href="https://venmo.com/u/pwalesdi">Venmo: @pwalesdi</a></p>
-          <!-- The QR shows only at 760px and wider. Phones match no <source> and get a 1-pixel inline GIF, so they never fetch the 670 KB PNG. -->
+          <!-- The QR shows only at 760px and wider. Phones match no <source> and get a 1-pixel inline GIF, so they never fetch the 324 KB PNG. -->
           <figure class="qr">
             <picture>
-              <source media="(min-width:760px)" srcset="/images/venmo-qr.png" width="978" height="1863">
-              <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="978" height="1863" alt="Venmo QR code for Patrick Wales-Dinan, @pwalesdi">
+              <source media="(min-width:760px)" srcset="/images/venmo-qr.png" width="659" height="659">
+              <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="659" height="659" alt="Venmo QR code for Patrick Wales-Dinan, @pwalesdi">
             </picture>
           </figure>
           <p>Make checks payable to Patrick Wales-Dinan, with "Bay Area Track Club" in the memo line. Checks made out to Bay Area Track Club are also accepted.</p>
